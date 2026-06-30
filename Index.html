@@ -1,0 +1,62 @@
+<html>
+    <title>ConForm</title>    
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var flowURL="https://defaultf610c0b7bd244b39810b3dc280afb5.90.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d1fd630616224377abcc71d222d7cba2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=NAFF53VnxagVPCjdEoFtPvTgfLOaKl7dIAedUo94jzI";
+
+            $('#frm input[type="button"]').click(function() {
+
+                var request = {
+                    Name: $('#name').val(),
+                    Email: $('#email').val(),
+                    Message: $('#message').val()
+                };
+
+                $.ajax({
+
+                    url: flowURL,
+
+                    type: "POST",
+
+                    contentType: "application/json",
+
+                    data: JSON.stringify(request),
+
+                    success: function (result) {
+
+                        alert("Submitted Successfully.");
+
+                    },
+
+                    error: function (xhr) {
+
+                        console.log(xhr);
+
+                        alert("Submission Failed.");
+
+                    }
+
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>ConForm</h1>
+    <form id="frm" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="button" value="Submit">
+    </form>
+</html>
